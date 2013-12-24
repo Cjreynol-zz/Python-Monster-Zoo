@@ -2,6 +2,8 @@
 # 12/23/13
 # MonsterZoo, monster.py has the class for creating your monsters
 
+from monstervisualizer import *
+
 class Monster:
 	"""A virtual monster to take care of."""
 	total = 0
@@ -12,6 +14,7 @@ class Monster:
 	SAD = 14
 
 	def __init__(self, name):
+		# monster attributes
 		self._name = name
 		self.hunger = 0
 		self.boredom = 0
@@ -19,6 +22,9 @@ class Monster:
 		self.sleepiness = 0
 		self._mood = "happy"
 		total += 1
+
+		# the visualizer
+		self.visual = Visualizer(self._mood, self.name)
 
 	def __str__(self):
 		return "{0} is currently {1}.".format(name, mood)
@@ -41,6 +47,7 @@ class Monster:
 		"""Get the current mood."""
 		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > SAD:
 			self._mood = "sad"
+			self.visual.show_sad()
 		elif self.hunger > HUNGRY:
 			self._mood = "hungry"
 		elif self.sleepiness > SLEEPY:
@@ -51,6 +58,8 @@ class Monster:
 			self._mood = "dirty"
 		else:
 			self._mood = "happy"
+			self.visual.show_happy()
+
 		return self._mood
 
 	def _pass_time(self):
@@ -87,3 +96,10 @@ class Monster:
 		self.dirtiness -= soap
 		if self.dirtiness < 0:
 			self.dirtiness = 0
+
+	def debug(self, hungry, sleepy, bored, dirt):
+		"""Changes stats by given values for testing."""
+		self.hunger += hungry
+		self.sleepiness += sleepy
+		self.boredom += bored
+		self.dirtiness += dirt
