@@ -18,35 +18,37 @@ class Visualizer:
 		# load all images
 		self.happy = PhotoImage(file = "monsterimages/happy.gif")
 		self.sad = PhotoImage(file = "monsterimages/sad.gif")
+		self.hungry = PhotoImage(file = "monsterimages/hungry.gif")
+		self.sleepy = PhotoImage(file = "monsterimages/sleepy.gif")
+		self.bored = PhotoImage(file = "monsterimages/bored.gif")
+		self.dirty = PhotoImage(file = "monsterimages/dirty.gif")
 	
 		# create label and display
-		self.image = Label(root, image = self.happy)
+		self.image = Label(self.root, image = self.happy)
 		self.image.pack()
 
-		self.root.mainloop()
+		#self.root.mainloop()
 
 	def show_happy(self):
 		"""Updates display with the happy image."""
 		self.image.config(image = self.happy)
-		#self.image.pack()
 
 	def show_sad(self):
 		"""Updates display with the sad image."""
 		self.image.config(image = self.sad)
-		self.image.pack()
 
 	def hungry(self):
 		"""Updates display with the hungry image."""
-		pass
+		self.image.config(image = self.hungry)
 
 	def sleepy(self):
 		"""Updates display with the sleepy image."""
-		pass
+		self.image.config(image = self.sleepy)
 
 	def bored(self):
 		"""Updates display with the bored image."""
-		pass
+		self.image.config(image = self.bored)
 
 	def dirty(self):
 		"""Updates display with the bored image."""
-		pass 
+		self.image.config(image = self.dirty)

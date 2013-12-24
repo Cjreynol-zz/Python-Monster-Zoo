@@ -21,18 +21,18 @@ class Monster:
 		self.dirtiness = 0
 		self.sleepiness = 0
 		self._mood = "happy"
-		total += 1
+		Monster.total += 1
 
 		# the visualizer
-		self.visual = Visualizer(self._mood, self.name)
+		self.visual = Visualizer(self.mood, self.name)
 
 	def __str__(self):
-		return "{0} is currently {1}.".format(name, mood)
+		return "{0} is currently {1}.".format(self.name, self.mood)
 
 	@property
 	def name(self):
 		"""Get the monster's name."""
-		return _name
+		return self._name
 
 	@name.setter
 	def name(self, value):
@@ -40,22 +40,26 @@ class Monster:
 		if value == "":
 			raise ValueError("Cannot have a monster with an empty name.")
 		else:
-			_name = value
+			self._name = value
 
 	@property
 	def mood(self):
-		"""Get the current mood."""
-		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > SAD:
+		"""Get the current mood and update Visualizer."""
+		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > Monster.SAD:
 			self._mood = "sad"
 			self.visual.show_sad()
-		elif self.hunger > HUNGRY:
+		elif self.hunger > Monster.HUNGRY:
 			self._mood = "hungry"
-		elif self.sleepiness > SLEEPY:
+			self.visual.show_hungry()
+		elif self.sleepiness > Monster.SLEEPY:
 			self._mood = "sleepy"
-		elif self.boredom > BORED:
+			self.visual.show_sleepy()
+		elif self.boredom > Monster.BORED:
 			self._mood = "bored"
-		elif self.dirtiness > DIRTY:
+			self.visual.show_bored()
+		elif self.dirtiness > Monster.DIRTY:
 			self._mood = "dirty"
+			self.visual.show_dirty()
 		else:
 			self._mood = "happy"
 			self.visual.show_happy()
