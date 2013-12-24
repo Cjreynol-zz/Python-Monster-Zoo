@@ -2,7 +2,7 @@
 # 12/23/13
 # Has the Monster class to create and interface with monsters
 
-from visualizer import *
+#from visualizer import *
 
 class Monster:
 	"""A virtual monster to take care of."""

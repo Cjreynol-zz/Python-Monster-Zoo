@@ -2,8 +2,8 @@
 # 12/23/13
 # Manager, gets name, then creates manager window
 
-from tkinter import *
-from monster import *
+#from tkinter import *
+#from monster import *
 
 class Name_Menu:
 	"""An Intro menu to get the name of your monster."""

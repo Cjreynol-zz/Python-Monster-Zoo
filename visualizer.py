@@ -4,7 +4,7 @@
 # based on the idea that there is a folder in the current directory called monsterimages
 # this directory contains the images:  happy, sad, hungry, sleepy, bored, dirty
 
-from tkinter import *
+#from tkinter import *
 
 class Visualizer:
 	"""Creates a form to visualize the Monster."""
