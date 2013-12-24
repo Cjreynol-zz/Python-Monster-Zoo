@@ -15,7 +15,7 @@ class Monster:
 
 	def __init__(self, name):
 		# monster attributes
-		self._name = name
+		self.name = name
 		self.hunger = 0
 		self.boredom = 0
 		self.dirtiness = 0
