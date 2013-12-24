@@ -1,8 +1,8 @@
 # Chad Reynolds
 # 12/23/13
-# MonsterZoo, monster.py has the class for creating your monsters
+# Has the Monster class to create and interface with monsters
 
-from monstervisualizer import *
+from visualizer import *
 
 class Monster:
 	"""A virtual monster to take care of."""
