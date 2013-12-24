@@ -1,0 +1,1 @@
+The goal is to create the 3 programs, monster, monster manager, and monster viewer, then have them work in unison.  The lab goal will be to show off one minigame, then get the students to create 3 more.
