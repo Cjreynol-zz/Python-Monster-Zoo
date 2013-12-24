@@ -73,28 +73,28 @@ class Monster:
 		self.dirtiness += 1
 		self.sleepiness += 1
 
-	def feed_monster(self, food = 3):
+	def feed(self, food = 3):
 		"""Feeds the monster an amount of food."""
 		self._pass_time()
 		self.hunger -= food
 		if self.hunger < 0:
 			self.hunger = 0
 
-	def nap_time(self, rest = 6):
+	def nap(self, rest = 6):
 		"""Gives the monster a nap for number of hours."""
 		self._pass_time()
 		self.sleepiness -= rest
 		if self.sleepiness < 0:
 			self.sleepiness = 0
 
-	def play_time(self, fun = 3):
+	def play(self, fun = 3):
 		"""Plays with the monster for a number of hours."""	
 		self._pass_time()
 		self.boredom -= fun
 		if self.boredom < 0:
 			self.boredom = 0	
 
-	def give_bath(self, soap = 5):
+	def clean(self, soap = 5):
 		"""Cleans the monster off."""
 		self._pass_time()
 		self.dirtiness -= soap
