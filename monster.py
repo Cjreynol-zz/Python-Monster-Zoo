@@ -2,7 +2,7 @@
 # 12/23/13
 # Has the Monster class to create and interface with monsters
 
-#from visualizer import *
+from visualizer import *
 
 class Monster:
 	"""A virtual monster to take care of."""
@@ -24,7 +24,7 @@ class Monster:
 		Monster.total += 1
 
 		# the visualizer
-		self.visual = Visualizer(self.mood, self.name)
+		self.visual = Visualizer(self._mood, self.name)
 
 	def __str__(self):
 		return "{0} is currently {1}.".format(self.name, self.mood)
