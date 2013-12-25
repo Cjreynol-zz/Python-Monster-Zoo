@@ -36,7 +36,9 @@ class Manager:
 
 	def __init__(self, name, master):
 		self.root = LabelFrame(master, text = name)
-		self.monster = Monster(name)
+		self.visualizer = Visualizer(name, self.root)
+		self.monster = Monster(name, self.visualizer)
+		self.visualizer.image.grid(row = 0, column = 6, rowspan = 3)
 
 		########### mood ############################################
 		self.mood_label = Label(self.root, text = "Mood:  ")

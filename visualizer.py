@@ -10,13 +10,7 @@ import os
 class Visualizer:
 	"""Image to visualize the mood the Monster."""
 
-	def __init__(self, mood, name):
-		# create window
-		self.root = Toplevel()
-		self.root.title(name)
-		self.root.resizable(width = False, height = False)
-
-		# load all images
+	def __init__(self, name, root):
 		if os.path.isdir(name):			
 			self.happy = PhotoImage(file = name + "/happy.gif")
 			self.sad = PhotoImage(file = name + "/sad.gif")
@@ -32,9 +26,7 @@ class Visualizer:
 			self.bored = PhotoImage(file = "default/bored.gif")
 			self.dirty = PhotoImage(file = "default/dirty.gif")
 	
-		# create label and display
-		self.image = Label(self.root, image = self.happy)
-		self.image.pack()
+		self.image = Label(root, image = self.happy)
 
 	def show_happy(self):
 		"""Updates display with the happy image."""

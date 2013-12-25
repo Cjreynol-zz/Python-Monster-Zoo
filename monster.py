@@ -13,7 +13,7 @@ class Monster:
 	SLEEPY = 6
 	SAD = 14
 
-	def __init__(self, name):
+	def __init__(self, name, visualizer):
 		# monster attributes
 		self.name = name
 		self.hunger = 0
@@ -24,7 +24,7 @@ class Monster:
 		Monster.total += 1
 
 		# the visualizer
-		self.visual = Visualizer(self._mood, self.name)
+		self.visual = visualizer
 
 	def __str__(self):
 		return "{0} is currently {1}.".format(self.name, self.mood)
