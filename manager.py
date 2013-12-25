@@ -5,41 +5,37 @@
 from tkinter import *
 from monster import *
 
-class Name_Menu:
+class Name_Window:
 	"""An Intro menu to get the name of your monster."""
 
-	def __init__(self):
-		self.root = Tk()
-		self.root.title("Monster Zoo")
+	def __init__(self, master):
+		self.root = Toplevel()
+		self.root.title("Create New Monster")
 
 		self.label = Label(self.root, text = "Name your monster: ")
 		self.label.pack()
-
 		self.input = Entry(self.root)
 		self.input.pack()
+		self.button = Button(self.root, text = "Add", command = self.start_manager)
+		self.button.pack()		
 
-		self.button = Button(self.root, text = "Start", command = self.start_manager)
-		self.button.pack()
-		
-		self.root.mainloop()
+		self.master = master
 
 	def start_manager(self):
-		"""Wrapper for start method that starts the manager with the name variable passed in."""
-		self.start(self.input.get(), self.root)
+		"""Wrapper for start method to pass on entry text and reference to main window."""
+		self.start(self.input.get(), self.root, self.master)
 
-	def start(self, name, window):
+	def start(self, name, window, master):
 		"""Starts Manager_Menu."""
 		window.destroy()
-		Manager_Menu(name)
+		Manager(name, master)
 
 
-class Manager_Menu:
-	"""Provides options to manage a monster."""
+class Manager:
+	"""Frame of options to manage a monster."""
 
-	def __init__(self, name):
-		self.root = Tk()
-		self.root.title(name + " Manager")
-		
+	def __init__(self, name, master):
+		self.root = LabelFrame(master, text = name)
 		self.monster = Monster(name)
 
 		########### mood ############################################
@@ -94,7 +90,7 @@ class Manager_Menu:
 		self.dirt_button = Button(self.root, text = "Clean", command = self.clean)
 		self.dirt_button.grid(row = 2, column = 5)
 		
-		self.root.mainloop()
+		self.root.pack()
 
 	def update_hunger(self):
 		"""Updates the hunger label by generating a string from the monster's hunger field."""

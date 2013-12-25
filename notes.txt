@@ -1,1 +1,17 @@
-The goal is to create the 3 programs, monster, monster manager, and monster viewer, then have them work in unison.  The lab goal will be to show off one minigame, then get the students to create 3 more.
+Monster Zoo
+
+Visualizer -> Monster -> Manager
+
+Manager holds a Monster, which holds a Visualizer.
+Currently the Manager is locked into the visual.  To be able load up multiple Managers I would need to separate 
+the interface from the manager.
+
+Manager
+-would become a LabelFrame instead of an instance of Tk
+
+Interface
+-Would be a main window that has a button to create an instance of Name_Menu, then add the LabelFrame to the main window
+
+interface
+	has root window, keeps passing root reference along so when manager is created it can link to that.
+	Name_Menu just stores and passes the reference.
