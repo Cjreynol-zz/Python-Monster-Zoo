@@ -10,7 +10,7 @@ class Name_Window:
 
 	def __init__(self, master):
 		self.root = Toplevel()
-		self.root.title("Create New Monster")
+		self.root.title("Create New")
 
 		self.label = Label(self.root, text = "Name your monster: ")
 		self.label.pack()

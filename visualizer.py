@@ -5,9 +5,10 @@
 # this directory contains the images:  happy, sad, hungry, sleepy, bored, dirty
 
 from tkinter import *
+import os
 
 class Visualizer:
-	"""Creates a form to visualize the Monster."""
+	"""Image to visualize the mood the Monster."""
 
 	def __init__(self, mood, name):
 		# create window
@@ -16,12 +17,20 @@ class Visualizer:
 		self.root.resizable(width = False, height = False)
 
 		# load all images
-		self.happy = PhotoImage(file = "monsterimages/happy.gif")
-		self.sad = PhotoImage(file = "monsterimages/sad.gif")
-		self.hungry = PhotoImage(file = "monsterimages/hungry.gif")
-		self.sleepy = PhotoImage(file = "monsterimages/sleepy.gif")
-		self.bored = PhotoImage(file = "monsterimages/bored.gif")
-		self.dirty = PhotoImage(file = "monsterimages/dirty.gif")
+		if os.path.isdir(name):			
+			self.happy = PhotoImage(file = name + "/happy.gif")
+			self.sad = PhotoImage(file = name + "/sad.gif")
+			self.hungry = PhotoImage(file = name + "/hungry.gif")
+			self.sleepy = PhotoImage(file = name + "/sleepy.gif")
+			self.bored = PhotoImage(file = name + "/bored.gif")
+			self.dirty = PhotoImage(file = name + "/dirty.gif")
+		else:
+			self.happy = PhotoImage(file = "default/happy.gif")
+			self.sad = PhotoImage(file = "default/sad.gif")
+			self.hungry = PhotoImage(file = "default/hungry.gif")
+			self.sleepy = PhotoImage(file = "default/sleepy.gif")
+			self.bored = PhotoImage(file = "default/bored.gif")
+			self.dirty = PhotoImage(file = "default/dirty.gif")
 	
 		# create label and display
 		self.image = Label(self.root, image = self.happy)
