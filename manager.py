@@ -38,14 +38,26 @@ class Manager:
 		self.root = LabelFrame(master, text = name)
 		self.visualizer = Visualizer(name, self.root)
 		self.monster = Monster(name, self.visualizer)
-		self.visualizer.image.grid(row = 0, column = 6, rowspan = 3)
+		self.visualizer.monster_image.grid(row = 0, column = 6, rowspan = 3)
+		self.visualizer.mood_image.grid(row = 0, column = 7, rowspan = 3)
+
+		########## age ##################################
+		self.age_label = Label(self.root, text = "Age:  ")
+		self.age_label.grid(row = 0, column = 3)
+		
+		self.age_state = StringVar()
+		self.update_age()
+		Label(self.root, textvariable = self.age_state).grid(row = 0, column = 4)
+
+		self.euthanize_button = Button(self.root, text = "Euthanize", command = self.euthanize)
+		self.euthanize_button.grid(row = 0, column = 5)
 
 		########### mood ############################################
 		self.mood_label = Label(self.root, text = "Mood:  ")
 		self.mood_label.grid(row = 0, column = 0)
 
 		self.mood_state = StringVar()
-		self.mood_state.set(self.monster.mood)
+		self.update_mood()
 		Label(self.root, textvariable = self.mood_state).grid(row = 0, column = 1)
 
 		######### hunger ############################################
@@ -162,6 +174,17 @@ class Manager:
 		"""Updates the mood state label."""
 		self.mood_state.set(self.monster.mood)
 
+	def update_age(self):
+		"""Updates the age label by generating a string based on the monster's age property."""
+		if self.monster.age == "Dead":
+			# some sort of window that the monster is dead, then calls euthanize()
+			pass
+		self.age_state.set(self.monster.age)
+
+	def euthanize(self):
+		"""Euthanizes the monster, removing it's manager frame from the window."""
+		self.root.destroy()
+
 	def update_all(self):
 		"""Calls all the update methods for the state labels."""
 		self.update_hunger()
@@ -169,3 +192,4 @@ class Manager:
 		self.update_boredom()
 		self.update_dirtiness()	
 		self.update_mood()
+		self.update_age()

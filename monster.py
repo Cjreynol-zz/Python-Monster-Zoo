@@ -12,6 +12,12 @@ class Monster:
 	DIRTY = 5
 	SLEEPY = 6
 	SAD = 14
+	
+	DEAD = 200
+	OLD = 150
+	ADULT = 100
+	TEENAGER = 50
+	CHILD = 25
 
 	def __init__(self, name, visualizer):
 		# monster attributes
@@ -20,7 +26,7 @@ class Monster:
 		self.boredom = 0
 		self.dirtiness = 0
 		self.sleepiness = 0
-		self._mood = "happy"
+		self._age = 0
 		Monster.total += 1
 
 		# the visualizer
@@ -46,25 +52,45 @@ class Monster:
 	def mood(self):
 		"""Get the current mood and update Visualizer."""
 		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > Monster.SAD:
-			self._mood = "sad"
 			self.visual.show_sad()
+			return "sad"
 		elif self.hunger > Monster.HUNGRY:
-			self._mood = "hungry"
 			self.visual.show_hungry()
+			return  "hungry"
 		elif self.sleepiness > Monster.SLEEPY:
-			self._mood = "sleepy"
 			self.visual.show_sleepy()
+			return "sleepy"
 		elif self.boredom > Monster.BORED:
-			self._mood = "bored"
 			self.visual.show_bored()
+			return "bored"
 		elif self.dirtiness > Monster.DIRTY:
-			self._mood = "dirty"
 			self.visual.show_dirty()
+			return "dirty"
 		else:
-			self._mood = "happy"
 			self.visual.show_happy()
+			return "happy"
 
-		return self._mood
+	@property
+	def age(self):
+		"""Gets the current age descriptor and updates Visualizer."""
+		if _age >= Monster.DEAD:
+			self.visual.show_dead()
+			return "Dead"
+		elif _age >= Monster.OLD:
+			self.visual.show_old()
+			return "Old"
+		elif _age >= Monster.ADULT:
+			self.visual.show_adult()
+			return "Adult"
+		elif _age >= Monster.TEENAGER:
+			self.visual.show_teenager()
+			return "Teenager"
+		elif _age >= Monster.CHILD:
+			self.visual.show_child()
+			return "Child"
+		else:
+			self.visual.show_baby()
+			return "Baby"
 
 	def _pass_time(self):
 		"""Shows the passage of time on the monster as events occur."""
@@ -72,6 +98,16 @@ class Monster:
 		self.boredom += 1
 		self.dirtiness += 1
 		self.sleepiness += 1
+		self._age += _age_monster(self.mood)
+
+	def _age_monster(self, state):
+		"""Determines how much the monster ages based on it's state."""
+		if state == "sad":
+			return 3
+		elif state == "hungry" or state == "sleepy" or state == "bored" or state == "dirty":
+			return 2
+		else:
+			return 1
 
 	def feed(self, food = 3):
 		"""Feeds the monster an amount of food."""
