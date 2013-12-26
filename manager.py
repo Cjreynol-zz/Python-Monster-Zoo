@@ -3,12 +3,13 @@
 # Manager, gets name, then creates manager window
 
 from tkinter import *
-from monster import *
+from monster import Monster
+from visualizer import Visualizer
 
 class Name_Window:
 	"""An Intro menu to get the name of your monster."""
 
-	def __init__(self, master):
+	def __init__(self, master, update_method):
 		self.root = Toplevel()
 		self.root.title("Create New")
 
@@ -19,35 +20,43 @@ class Name_Window:
 		self.button = Button(self.root, text = "Add", command = self.start_manager)
 		self.button.pack()		
 
+		# passed along to Manager so it can change things on the interface
 		self.master = master
+		self.method = update_method
 
 	def start_manager(self):
 		"""Wrapper for start method to pass on entry text and reference to main window."""
-		self.start(self.input.get(), self.root, self.master)
+		self.start(self.input.get(), self.root, self.master, self.method)
 
-	def start(self, name, window, master):
+	def start(self, name, window, master, update_method):
 		"""Starts Manager_Menu."""
 		window.destroy()
-		Manager(name, master)
+		Manager(name, master, update_method)
 
 
 class Manager:
 	"""Frame of options to manage a monster."""
 
-	def __init__(self, name, master):
+	def __init__(self, name, master, update_method):
 		self.root = LabelFrame(master, text = name)
 		self.visualizer = Visualizer(name, self.root)
 		self.monster = Monster(name, self.visualizer)
+		# called to update the interface's total label
+		update_method()
 		self.visualizer.monster_image.grid(row = 0, column = 6, rowspan = 3)
 		self.visualizer.mood_image.grid(row = 0, column = 7, rowspan = 3)
 
+		# controls whether the button's perform their action, for use when
+		# a monster is dead or a minigame is playing
+		self.button_bool = True
+
 		########## age ##################################
 		self.age_label = Label(self.root, text = "Age:  ")
-		self.age_label.grid(row = 0, column = 3)
+		self.age_label.grid(row = 0, column = 2)
 		
 		self.age_state = StringVar()
 		self.update_age()
-		Label(self.root, textvariable = self.age_state).grid(row = 0, column = 4)
+		Label(self.root, textvariable = self.age_state).grid(row = 0, column = 3)
 
 		self.euthanize_button = Button(self.root, text = "Euthanize", command = self.euthanize)
 		self.euthanize_button.grid(row = 0, column = 5)
@@ -119,8 +128,9 @@ class Manager:
 
 	def feed(self):
 		"""Feeds the monster."""
-		self.monster.feed()
-		self.update_all()
+		if self.button_bool:
+			self.monster.feed()
+			self.update_all()
 
 	def update_sleepiness(self):
 		"""Updates the sleepiness label by generating a string from the monster's sleepiness field."""
@@ -135,8 +145,9 @@ class Manager:
 
 	def nap(self):
 		"""Puts the monster down for a nap."""
-		self.monster.nap()
-		self.update_all()
+		if self.button_bool:
+			self.monster.nap()
+			self.update_all()
 
 	def update_boredom(self):
 		"""Updates the boredom label by generating a string from the monster's boredom field."""
@@ -151,8 +162,9 @@ class Manager:
 
 	def play(self):
 		"""Entertains the monster."""
-		self.monster.play()
-		self.update_all()
+		if self.button_bool:
+			self.monster.play()
+			self.update_all()
 
 	def update_dirtiness(self):
 		"""Updates the dirtiness label by generating a string from the monster's dirtiness field."""
@@ -167,8 +179,9 @@ class Manager:
 
 	def clean(self):
 		"""Cleans the monster."""
-		self.monster.clean()	
-		self.update_all()
+		if self.button_bool:
+			self.monster.clean()	
+			self.update_all()
 
 	def update_mood(self):
 		"""Updates the mood state label."""
@@ -177,12 +190,13 @@ class Manager:
 	def update_age(self):
 		"""Updates the age label by generating a string based on the monster's age property."""
 		if self.monster.age == "Dead":
-			# some sort of window that the monster is dead, then calls euthanize()
-			pass
+			# some sort of window that the monster is dead, and change button_bool to False so no actions can be taken
+			self.button_bool = False
 		self.age_state.set(self.monster.age)
 
 	def euthanize(self):
 		"""Euthanizes the monster, removing it's manager frame from the window."""
+		Monster.total -= 1
 		self.root.destroy()
 
 	def update_all(self):

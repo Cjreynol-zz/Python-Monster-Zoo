@@ -2,7 +2,7 @@
 # 12/24/23
 # main program to run the manager, which handles the rest
 
-from interface import *
+from interface import Interface
 
 def main():
 	"""Main function."""

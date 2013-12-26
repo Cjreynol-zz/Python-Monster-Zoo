@@ -2,7 +2,7 @@
 # 12/23/13
 # Has the Monster class to create and interface with monsters
 
-from visualizer import *
+from visualizer import Visualizer
 
 class Monster:
 	"""A virtual monster to take care of."""
@@ -29,24 +29,11 @@ class Monster:
 		self._age = 0
 		Monster.total += 1
 
-		# the visualizer
+		# reference to the visualizer that is controlled by the same manager, so this monster can update it's visuals
 		self.visual = visualizer
 
 	def __str__(self):
 		return "{0} is currently {1}.".format(self.name, self.mood)
-
-	@property
-	def name(self):
-		"""Get the monster's name."""
-		return self._name
-
-	@name.setter
-	def name(self, value):
-		"""Set the monster's name."""
-		if value == "":
-			raise ValueError("Cannot have a monster with an empty name.")
-		else:
-			self._name = value
 
 	@property
 	def mood(self):
@@ -73,19 +60,19 @@ class Monster:
 	@property
 	def age(self):
 		"""Gets the current age descriptor and updates Visualizer."""
-		if _age >= Monster.DEAD:
+		if self._age >= Monster.DEAD:
 			self.visual.show_dead()
 			return "Dead"
-		elif _age >= Monster.OLD:
+		elif self._age >= Monster.OLD:
 			self.visual.show_old()
 			return "Old"
-		elif _age >= Monster.ADULT:
+		elif self._age >= Monster.ADULT:
 			self.visual.show_adult()
 			return "Adult"
-		elif _age >= Monster.TEENAGER:
+		elif self._age >= Monster.TEENAGER:
 			self.visual.show_teenager()
 			return "Teenager"
-		elif _age >= Monster.CHILD:
+		elif self._age >= Monster.CHILD:
 			self.visual.show_child()
 			return "Child"
 		else:
@@ -98,16 +85,18 @@ class Monster:
 		self.boredom += 1
 		self.dirtiness += 1
 		self.sleepiness += 1
-		self._age += _age_monster(self.mood)
+		self._age += self._age_monster(self.mood)
 
 	def _age_monster(self, state):
 		"""Determines how much the monster ages based on it's state."""
 		if state == "sad":
 			return 3
-		elif state == "hungry" or state == "sleepy" or state == "bored" or state == "dirty":
+		elif state == "hungry" or state == "bored":
 			return 2
-		else:
+		elif state == "sleepy" or state == "dirty":
 			return 1
+		else:
+			return 0
 
 	def feed(self, food = 3):
 		"""Feeds the monster an amount of food."""
