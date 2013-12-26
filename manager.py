@@ -9,7 +9,7 @@ from visualizer import Visualizer
 class Name_Window:
 	"""An Intro menu to get the name of your monster."""
 
-	def __init__(self, master, update_method):
+	def __init__(self, master, total_var):
 		self.root = Toplevel()
 		self.root.title("Create New")
 
@@ -22,27 +22,29 @@ class Name_Window:
 
 		# passed along to Manager so it can change things on the interface
 		self.master = master
-		self.method = update_method
+		self.total_var = total_var
 
 	def start_manager(self):
 		"""Wrapper for start method to pass on entry text and reference to main window."""
-		self.start(self.input.get(), self.root, self.master, self.method)
+		self.start(self.input.get(), self.root, self.master, self.total_var)
 
-	def start(self, name, window, master, update_method):
+	def start(self, name, window, master, total_var):
 		"""Starts Manager_Menu."""
 		window.destroy()
-		Manager(name, master, update_method)
+		Manager(name, master, total_var)
 
 
 class Manager:
 	"""Frame of options to manage a monster."""
 
-	def __init__(self, name, master, update_method):
+	def __init__(self, name, master, total_var):
 		self.root = LabelFrame(master, text = name)
 		self.visualizer = Visualizer(name, self.root)
 		self.monster = Monster(name)
-		# called to update the interface's total label
-		update_method()
+
+		self.total_var = total_var
+		self.total_var.set(total_var.get() + 1)
+
 		self.visualizer.monster_image.grid(row = 0, column = 6, rowspan = 3)
 		self.visualizer.mood_image.grid(row = 0, column = 7, rowspan = 3)
 
@@ -196,7 +198,7 @@ class Manager:
 
 	def euthanize(self):
 		"""Euthanizes the monster, removing it's manager frame from the window."""
-		Monster.total -= 1
+		self.total_var.set(self.total_var.get() - 1)
 		self.root.destroy()
 
 	def update_all(self):

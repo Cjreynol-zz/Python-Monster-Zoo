@@ -4,7 +4,6 @@
 
 class Monster:
 	"""A virtual monster to take care of."""
-	total = 0
 	HUNGRY = 5
 	BORED = 4
 	DIRTY = 5
@@ -17,7 +16,7 @@ class Monster:
 	TEENAGER = 50
 	CHILD = 25
 
-	def __init__(self, name, visualizer):
+	def __init__(self, name):
 		# monster attributes
 		self.name = name
 		self.hunger = 0
@@ -25,7 +24,6 @@ class Monster:
 		self.dirtiness = 0
 		self.sleepiness = 0
 		self._age = 0
-		Monster.total += 1
 
 	def __str__(self):
 		return "{0} is currently {1}.".format(self.name, self.mood)
