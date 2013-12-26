@@ -36,51 +36,34 @@ class Visualizer:
 			self.baby = PhotoImage(file = "default/baby.gif")
 
 		self.monster_image = Label(root, image = self.baby)
-
-	def show_happy(self):
-		"""Updates display with the happy image."""
-		self.mood_image.config(image = self.happy)
-
-	def show_sad(self):
-		"""Updates display with the sad image."""
-		self.mood_image.config(image = self.sad)
-
-	def show_hungry(self):
-		"""Updates display with the hungry image."""
-		self.mood_image.config(image = self.hungry)
-
-	def show_sleepy(self):
-		"""Updates display with the sleepy image."""
-		self.mood_image.config(image = self.sleepy)
-
-	def show_bored(self):
-		"""Updates display with the bored image."""
-		self.mood_image.config(image = self.bored)
-
-	def show_dirty(self):
-		"""Updates display with the bored image."""
-		self.mood_image.config(image = self.dirty)
-
-	def show_dead(self):
-		"""Updates display with dead image."""
-		self.monster_image.config(image = self.dead)
-
-	def show_old(self):
-		"""Updates display with old image."""
-		self.monster_image.config(image = self.old)
-
-	def show_adult(self):
-		"""Updates display with adult image."""
-		self.monster_image.config(image = self.adult)
 	
-	def show_teenager(self):
-		"""Updates display with the teenager image."""
-		self.monster_image.config(image = self.teenager)
+	def update_mood(self, state):
+		"""Changes the mood image based on the passed in mood."""
+		if state == "sad":
+			self.mood_image.config(image = self.sad)
+		elif state == "hungry":
+			self.mood_image.config(image = self.hungry)
+		elif state == "sleepy":
+			self.mood_image.config(image = self.sleepy)
+		elif state == "bored":
+			self.mood_image.config(image = self.bored)
+		elif state == "dirty":
+			self.mood_image.config(image = self.dirty)
+		else:
+			self.mood_image.config(image = self.happy)
+	
+	def update_age(self, state):
+		"""Changes the monster image based on the passed in age."""
+		if state == "Dead":	
+			self.monster_image.config(image = self.dead)
+		elif state == "Old":
+			self.monster_image.config(image = self.old)
+		elif state == "Adult":	
+			self.monster_image.config(image = self.adult)
+		elif state == "Teenager":
+			self.monster_image.config(image = self.teenager)
+		elif state == "Child":
+			self.monster_image.config(image = self.child)
+		else:
+			self.monster_image.config(image = self.baby)
 
-	def show_child(self):
-		"""Updates display with the child image."""
-		self.monster_image.config(image = self.child)
-
-	def show_baby(self):
-		"""Updates display with the baby image."""
-		self.monster_image.config(image = self.baby)

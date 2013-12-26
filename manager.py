@@ -40,7 +40,7 @@ class Manager:
 	def __init__(self, name, master, update_method):
 		self.root = LabelFrame(master, text = name)
 		self.visualizer = Visualizer(name, self.root)
-		self.monster = Monster(name, self.visualizer)
+		self.monster = Monster(name)
 		# called to update the interface's total label
 		update_method()
 		self.visualizer.monster_image.grid(row = 0, column = 6, rowspan = 3)
@@ -207,3 +207,6 @@ class Manager:
 		self.update_dirtiness()	
 		self.update_mood()
 		self.update_age()
+
+		self.visualizer.update_mood(self.monster.mood)
+		self.visualizer.update_age(self.monster.age)

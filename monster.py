@@ -2,8 +2,6 @@
 # 12/23/13
 # Has the Monster class to create and interface with monsters
 
-from visualizer import Visualizer
-
 class Monster:
 	"""A virtual monster to take care of."""
 	total = 0
@@ -29,9 +27,6 @@ class Monster:
 		self._age = 0
 		Monster.total += 1
 
-		# reference to the visualizer that is controlled by the same manager, so this monster can update it's visuals
-		self.visual = visualizer
-
 	def __str__(self):
 		return "{0} is currently {1}.".format(self.name, self.mood)
 
@@ -39,44 +34,32 @@ class Monster:
 	def mood(self):
 		"""Get the current mood and update Visualizer."""
 		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > Monster.SAD:
-			self.visual.show_sad()
 			return "sad"
 		elif self.hunger > Monster.HUNGRY:
-			self.visual.show_hungry()
 			return  "hungry"
 		elif self.sleepiness > Monster.SLEEPY:
-			self.visual.show_sleepy()
 			return "sleepy"
 		elif self.boredom > Monster.BORED:
-			self.visual.show_bored()
 			return "bored"
 		elif self.dirtiness > Monster.DIRTY:
-			self.visual.show_dirty()
 			return "dirty"
 		else:
-			self.visual.show_happy()
 			return "happy"
 
 	@property
 	def age(self):
 		"""Gets the current age descriptor and updates Visualizer."""
 		if self._age >= Monster.DEAD:
-			self.visual.show_dead()
 			return "Dead"
 		elif self._age >= Monster.OLD:
-			self.visual.show_old()
 			return "Old"
 		elif self._age >= Monster.ADULT:
-			self.visual.show_adult()
 			return "Adult"
 		elif self._age >= Monster.TEENAGER:
-			self.visual.show_teenager()
 			return "Teenager"
 		elif self._age >= Monster.CHILD:
-			self.visual.show_child()
 			return "Child"
 		else:
-			self.visual.show_baby()
 			return "Baby"
 
 	def _pass_time(self):
