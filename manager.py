@@ -41,6 +41,7 @@ class Manager:
 		self.root = LabelFrame(master, text = name)
 		self.visualizer = Visualizer(name, self.root)
 		self.monster = Monster(name)
+		self.stats = Stat_Tracker()
 
 		self.total_var = total_var
 		self.total_var.set(total_var.get() + 1)
@@ -59,9 +60,6 @@ class Manager:
 		self.age_state = StringVar()
 		self.update_age()
 		Label(self.root, textvariable = self.age_state).grid(row = 0, column = 3)
-
-		self.euthanize_button = Button(self.root, text = "Euthanize", command = self.euthanize)
-		self.euthanize_button.grid(row = 0, column = 5)
 
 		########### mood ############################################
 		self.mood_label = Label(self.root, text = "Mood:  ")
@@ -133,6 +131,7 @@ class Manager:
 		if self.button_bool:
 			self.monster.feed()
 			self.update_all()
+			self.stats.update_stats("feed", self.monster.mood, self.monster.age)
 
 	def update_sleepiness(self):
 		"""Updates the sleepiness label by generating a string from the monster's sleepiness field."""
@@ -150,6 +149,7 @@ class Manager:
 		if self.button_bool:
 			self.monster.nap()
 			self.update_all()
+			self.stats.update_stats("nap", self.monster.mood, self.monster.age)
 
 	def update_boredom(self):
 		"""Updates the boredom label by generating a string from the monster's boredom field."""
@@ -167,6 +167,7 @@ class Manager:
 		if self.button_bool:
 			self.monster.play()
 			self.update_all()
+			self.stats.update_stats("play", self.monster.mood, self.monster.age)
 
 	def update_dirtiness(self):
 		"""Updates the dirtiness label by generating a string from the monster's dirtiness field."""
@@ -184,6 +185,7 @@ class Manager:
 		if self.button_bool:
 			self.monster.clean()	
 			self.update_all()
+			self.stats.update_stats("clean", self.monster.mood, self.monster.age)
 
 	def update_mood(self):
 		"""Updates the mood state label."""
@@ -192,8 +194,8 @@ class Manager:
 	def update_age(self):
 		"""Updates the age label by generating a string based on the monster's age property."""
 		if self.monster.age == "Dead":
-			# some sort of window that the monster is dead, and change button_bool to False so no actions can be taken
 			self.button_bool = False
+			self.stats.monster_death(self)
 		self.age_state.set(self.monster.age)
 
 	def euthanize(self):
