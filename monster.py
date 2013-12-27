@@ -8,7 +8,7 @@ class Monster:
 	BORED = 4
 	DIRTY = 5
 	SLEEPY = 6
-	SAD = 14
+	SAD = 18
 	
 	DEAD = 200
 	OLD = 150
@@ -32,10 +32,10 @@ class Monster:
 			return "sad"
 		elif self.hunger >= Monster.HUNGRY:
 			return  "hungry"
-		elif self.sleepiness >= Monster.SLEEPY:
-			return "sleepy"
 		elif self.boredom >= Monster.BORED:
 			return "bored"
+		elif self.sleepiness >= Monster.SLEEPY:
+			return "sleepy"
 		elif self.dirtiness >= Monster.DIRTY:
 			return "dirty"
 		else:
@@ -76,7 +76,7 @@ class Monster:
 		else:
 			return 0
 
-	def feed(self, food = 4):
+	def feed(self, food = 3):
 		"""Feeds the monster an amount of food."""
 		self._pass_time()
 		self.hunger -= food
@@ -97,7 +97,7 @@ class Monster:
 		if self.boredom < 0:
 			self.boredom = 0	
 
-	def clean(self, soap = 6):
+	def clean(self, soap = 5):
 		"""Cleans the monster off."""
 		self._pass_time()
 		self.dirtiness -= soap
