@@ -25,21 +25,18 @@ class Monster:
 		self.sleepiness = 0
 		self._age = 0
 
-	def __str__(self):
-		return "{0} is currently {1}.".format(self.name, self.mood)
-
 	@property
 	def mood(self):
 		"""Get the current mood and update Visualizer."""
-		if self.hunger + self.boredom + self.dirtiness + self.sleepiness > Monster.SAD:
+		if self.hunger + self.boredom + self.dirtiness + self.sleepiness >= Monster.SAD:
 			return "sad"
-		elif self.hunger > Monster.HUNGRY:
+		elif self.hunger >= Monster.HUNGRY:
 			return  "hungry"
-		elif self.sleepiness > Monster.SLEEPY:
+		elif self.sleepiness >= Monster.SLEEPY:
 			return "sleepy"
-		elif self.boredom > Monster.BORED:
+		elif self.boredom >= Monster.BORED:
 			return "bored"
-		elif self.dirtiness > Monster.DIRTY:
+		elif self.dirtiness >= Monster.DIRTY:
 			return "dirty"
 		else:
 			return "happy"
@@ -62,11 +59,11 @@ class Monster:
 
 	def _pass_time(self):
 		"""Shows the passage of time on the monster as events occur."""
+		self._age += self._age_monster(self.mood)
 		self.hunger += 1
 		self.boredom += 1
 		self.dirtiness += 1
 		self.sleepiness += 1
-		self._age += self._age_monster(self.mood)
 
 	def _age_monster(self, state):
 		"""Determines how much the monster ages based on it's state."""
@@ -79,28 +76,28 @@ class Monster:
 		else:
 			return 0
 
-	def feed(self, food = 3):
+	def feed(self, food = 4):
 		"""Feeds the monster an amount of food."""
 		self._pass_time()
 		self.hunger -= food
 		if self.hunger < 0:
 			self.hunger = 0
 
-	def nap(self, rest = 6):
+	def nap(self, rest = 7):
 		"""Gives the monster a nap for number of hours."""
 		self._pass_time()
 		self.sleepiness -= rest
 		if self.sleepiness < 0:
 			self.sleepiness = 0
 
-	def play(self, fun = 3):
+	def play(self, fun = 4):
 		"""Plays with the monster for a number of hours."""	
 		self._pass_time()
 		self.boredom -= fun
 		if self.boredom < 0:
 			self.boredom = 0	
 
-	def clean(self, soap = 5):
+	def clean(self, soap = 6):
 		"""Cleans the monster off."""
 		self._pass_time()
 		self.dirtiness -= soap

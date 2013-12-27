@@ -5,6 +5,7 @@
 from tkinter import *
 from monster import Monster
 from visualizer import Visualizer
+from stats import Stat_Tracker
 
 class Name_Window:
 	"""An Intro menu to get the name of your monster."""
@@ -129,9 +130,9 @@ class Manager:
 	def feed(self):
 		"""Feeds the monster."""
 		if self.button_bool:
+			self.stats.update_stats("feed", self.monster.mood, self.monster.age)
 			self.monster.feed()
 			self.update_all()
-			self.stats.update_stats("feed", self.monster.mood, self.monster.age)
 
 	def update_sleepiness(self):
 		"""Updates the sleepiness label by generating a string from the monster's sleepiness field."""
@@ -147,9 +148,9 @@ class Manager:
 	def nap(self):
 		"""Puts the monster down for a nap."""
 		if self.button_bool:
+			self.stats.update_stats("nap", self.monster.mood, self.monster.age)
 			self.monster.nap()
 			self.update_all()
-			self.stats.update_stats("nap", self.monster.mood, self.monster.age)
 
 	def update_boredom(self):
 		"""Updates the boredom label by generating a string from the monster's boredom field."""
@@ -165,9 +166,9 @@ class Manager:
 	def play(self):
 		"""Entertains the monster."""
 		if self.button_bool:
+			self.stats.update_stats("play", self.monster.mood, self.monster.age)
 			self.monster.play()
 			self.update_all()
-			self.stats.update_stats("play", self.monster.mood, self.monster.age)
 
 	def update_dirtiness(self):
 		"""Updates the dirtiness label by generating a string from the monster's dirtiness field."""
@@ -183,9 +184,9 @@ class Manager:
 	def clean(self):
 		"""Cleans the monster."""
 		if self.button_bool:
+			self.stats.update_stats("clean", self.monster.mood, self.monster.age)
 			self.monster.clean()	
 			self.update_all()
-			self.stats.update_stats("clean", self.monster.mood, self.monster.age)
 
 	def update_mood(self):
 		"""Updates the mood state label."""
@@ -205,12 +206,12 @@ class Manager:
 
 	def update_all(self):
 		"""Calls all the update methods for the state labels."""
+		self.update_age()
+		self.update_mood()
 		self.update_hunger()
 		self.update_sleepiness()
 		self.update_boredom()
 		self.update_dirtiness()	
-		self.update_mood()
-		self.update_age()
 
 		self.visualizer.update_mood(self.monster.mood)
 		self.visualizer.update_age(self.monster.age)

@@ -2,6 +2,7 @@
 # 12/27/13
 # Create a class to be used by the manager to keep track of the stats of the monster, and display them when it dies.
 
+from tkinter import *
 
 class Stat_Tracker():
 	"""Keeps track of monster stats."""
@@ -68,11 +69,11 @@ class Stat_Tracker():
 		root = Toplevel()
 		root.title("{0} has died :(".format(manager.monster.name))
 
-		total = self.fed + self.napped + self.played + self.bored
+		total = self.fed + self.napped + self.played + self.cleaned
 		lifespan = Label(root, text = "They lived for {0} actions.\n\n".format(total))
 		lifespan.pack()
 
-		actions = Label(root, text = "Fed {0} times.\nCleaned {1} times.\nNapped {2} times.\nPlayed {3} times.\n\n".format(self.fed, self.cleaned, self.napped, self.played)
+		actions = Label(root, text = "Fed {0} times.\nCleaned {1} times.\nNapped {2} times.\nPlayed {3} times.\n\n".format(self.fed, self.cleaned, self.napped, self.played))
 		actions.pack()
 
 		mood = Label(root, text = "Happy for {0} actions.\nSad for {1} actions.\nHungry for {2} actions.\nBored for {3} actions.\nSleepy for {4} actions.\nDirty for {5} actions.\n\n".format(self.happy, self.sad, self.hungry, self.bored, self.sleepy, self.dirty))
